@@ -70,7 +70,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'America/Argentina/Buenos_aires',
 
     /*
     |--------------------------------------------------------------------------
@@ -183,6 +183,7 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'Example' => App\Facades\Example::class,
+        'BarryvdhDebugbarServiceProvider',
     ])->toArray(),
 
 ];
