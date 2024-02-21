@@ -9,15 +9,19 @@ class DashboardController extends Controller
 {
    public function index()
    {
-//       $twit = New Twittah([
-//           'content' => 'test'
-//       ]);
-//       $twit->save();
+       // Check for a search
+       // If there is, search the value on db
 
-       dump(Twittah::all());
+       $twits = Twittah::orderBy('created_at', 'DESC');
+
+       if(request()->has('search')){
+           $searchParam = "%" . request()->get('search', '') . "%";
+
+           $twits = $twits->where('content', 'like' , $searchParam);
+       }
 
        return view('dashboard', [
-           'twits' => Twittah::all()
+           'twits' => $twits->paginate(3)
        ]);
    }
 }
