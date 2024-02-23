@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TwitController;
@@ -44,3 +45,13 @@ Route::post('/twits/{twit}/comments', [ CommentController::class, 'store' ])->na
 Route::get('/terms', function() {
     return view('terms');
 });
+
+/*
+|--------------------------------------------------------------------------
+| Register Routes
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/register', [ AuthController::class, 'register' ])->name('register');
+
+Route::post('/register', [ AuthController::class, 'store' ]);

@@ -13,7 +13,7 @@ class TwitController extends Controller
 
     public function store() {
 
-        $validated                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   = request()->validate([
+        $validated = request()->validate([
             'content' => 'required|min:10|max:280'
         ]);
 
@@ -31,12 +31,11 @@ class TwitController extends Controller
 
     public function update(Twittah $twit) {
 
-        request()->validate([
+        $validated = request()->validate([
             'content' => 'required|min:10|max:280'
         ]);
 
-        $twit->content
-        $twit->save(); = request()->get('content', '');
+        $twit->update($validated);
 
         return redirect()->route('twits.show',$twit->id)->with('success', 'Twit updated successfully');
     }
