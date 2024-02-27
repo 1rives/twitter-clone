@@ -12,6 +12,7 @@ class CommentController extends Controller
 
         $comment = new Comment();
         $comment->twittah_id = $twit->id;
+        $comment->user_id = auth()->id;
         $comment->content = request()->get('content');
         $comment->save();
 

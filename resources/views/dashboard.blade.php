@@ -10,12 +10,16 @@
             @include('shared.success-message')
             @include('shared.submit-twit')
             <hr>
-            @foreach($twits as $twit)
+
+            @forelse($twits as $twit)
                 <div class="mt-3">
                     @include('shared.twit-card')
                 </div>
-            @endforeach
-            {{ $twits->links() }}
+            @empty
+                <span class="d-flex text-muted justify-content-center">No results found.</span>
+            @endforelse
+            
+            {{ $twits->withQueryString()->links() }}
         </div>
         <div class="col-3">
             @include('shared.search-bar')

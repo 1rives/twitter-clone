@@ -24,17 +24,12 @@ Route::get('/', [ DashboardController::class, 'index' ])->name('dashboard');
 | Twits Routes
 |--------------------------------------------------------------------------
 */
-Route::get('/twits/{twit}', [ TwitController::class, 'show' ])->name('twits.show');
 
-Route::post('/twits', [ TwitController::class, 'store' ])->name('twits.store');
+Route::resource('twits', TwitController::class)->except(['index', 'create', 'show'])->middleware('auth');
 
-Route::get('/twits/{twit}/edit', [ TwitController::class, 'edit' ])->name('twits.edit');
+Route::resource('twits', TwitController::class)->only(['show']);
 
-Route::put('/twits/{twit}', [ TwitController::class, 'update' ])->name('twits.update');
-
-Route::delete('/twits/{twit}', [ TwitController::class, 'destroy' ])->name('twits.destroy');
-
-Route::post('/twits/{twit}/comments', [ CommentController::class, 'store' ])->name('twits.comments.store');
+Route::resource('twits.comments', CommentController::class)->only(['store'])->middleware('auth');
 
 /*
 |--------------------------------------------------------------------------
@@ -45,13 +40,3 @@ Route::post('/twits/{twit}/comments', [ CommentController::class, 'store' ])->na
 Route::get('/terms', function() {
     return view('terms');
 });
-
-/*
-|--------------------------------------------------------------------------
-| Register Routes
-|--------------------------------------------------------------------------
-*/
-
-Route::get('/register', [ AuthController::class, 'register' ])->name('register');
-
-Route::post('/register', [ AuthController::class, 'store' ]);
