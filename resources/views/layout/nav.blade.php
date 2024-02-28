@@ -11,26 +11,26 @@
             <ul class="navbar-nav">
                 @guest()
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/login">Login</a>
+                        <a class="nav-link active" aria-current="page" href="{{ route('login') }}">Login</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/register">Register</a>
+                        <a class="nav-link" href="{{ route('register') }}">Register</a>
                     </li>
                 @endguest
                 @auth()
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">{{ Auth::user()->name }}</a>
+                        <a class="nav-link active" aria-current="page" href="{{ route('users.show',Auth::id()) }}">{{ Auth::user()->name }}</a>
                     </li>
-                        <li class="nav-item">
-                            <form action="{{ route('logout') }}" method="POST">
-                                @csrf
-                                <button type="submit" class="btn bg-transparent">Logout</button>
-                            </form>
-                        </li>
+                    <li class="nav-item">
+                        <form action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <button type="submit" class="btn bg-transparent">Logout</button>
+                        </form>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/profile">Profile</a>
+                    </li>
                 @endauth
-                <li class="nav-item">
-                    <a class="nav-link" href="/profile">Profile</a>
-                </li>
             </ul>
         </div>
     </div>

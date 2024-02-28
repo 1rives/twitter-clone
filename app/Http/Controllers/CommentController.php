@@ -10,11 +10,14 @@ class CommentController extends Controller
 {
     public function store(Twittah $twit){
 
-        $comment = new Comment();
-        $comment->twittah_id = $twit->id;
-        $comment->user_id = auth()->id;
-        $comment->content = request()->get('content');
-        $comment->save();
+        $validated = request()->validate([
+            'content' => 'required|min:3|max:240'
+        ]);
+
+        $validated['user_id'] = auth()->id();
+        $validated['idea_id'] = $twit->id;
+
+        Comment::create($validated);
 
         return redirect()->route('twits.show',$twit->id)->with('success', 'Comment posted successfully');
     }

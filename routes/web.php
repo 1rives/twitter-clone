@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TwitController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,6 +31,17 @@ Route::resource('twits', TwitController::class)->except(['index', 'create', 'sho
 Route::resource('twits', TwitController::class)->only(['show']);
 
 Route::resource('twits.comments', CommentController::class)->only(['store'])->middleware('auth');
+
+
+/*
+|--------------------------------------------------------------------------
+| User Routes
+|--------------------------------------------------------------------------
+*/
+
+Route::resource('users', UserController::class)->only(['show', 'edit', 'update'])->middleware('auth');
+
+Route::get('profile', [UserController::class, 'profile'])->name('profile')->middleware('auth');
 
 /*
 |--------------------------------------------------------------------------

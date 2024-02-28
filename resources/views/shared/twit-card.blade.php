@@ -7,7 +7,7 @@
                 <img style="width:50px" class="me-2 avatar-sm rounded-circle"
                      src="https://api.dicebear.com/7.x/fun-emoji/svg?seed={{ $twit->user->name }}" alt="{{ $twit->user->name }} Avatar">
                 <div>
-                    <h5 class="card-title mb-0"><a class="text-decoration-none" href="#">{{ $twit->user->name }}
+                    <h5 class="card-title mb-0"><a class="text-decoration-none" href="{{ route('users.show',$twit->user->id) }}">{{ $twit->user->name }}
                         </a></h5>
                 </div>
             </div>
