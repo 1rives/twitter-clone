@@ -56,7 +56,7 @@
             </div>
             <div>
                 <span class="fs-6 fw-light text-muted"> <span class="fas fa-clock"> </span>
-                    {{ Carbon::parse($twit->created_at)->format('d/m/y H:i') }}
+                    {{ Carbon::parse($twit->created_at)->diffForHumans() }}
                 </span>
             </div>
         </div>

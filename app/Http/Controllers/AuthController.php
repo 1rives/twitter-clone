@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\WelcomeMail;
 use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -9,6 +10,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class AuthController extends Controller
 {
@@ -29,13 +31,16 @@ class AuthController extends Controller
            'password' => 'required|min:8|max:50|confirmed',
         ]);
 
-        User::create(
+        $user = User::create(
             [
                 'name' => $validated['name'],
                 'email' => $validated['email'],
                 'password' => Hash::make($validated['password']),
             ]
         );
+
+        Mail::to($user->email)
+            ->send(new WelcomeMail($user));
 
         return redirect()->route('dashboard')->with('success', 'Account created successfully');
     }

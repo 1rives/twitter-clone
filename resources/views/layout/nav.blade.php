@@ -11,7 +11,7 @@
             <ul class="navbar-nav">
                 @guest()
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{ route('login') }}">Login</a>
+                        <a class="nav-link" aria-current="page" href="{{ route('login') }}">Login</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('register') }}">Register</a>
@@ -22,13 +22,13 @@
                         <span class="nav-link" aria-current="page">{{ Auth::user()->name }}</span>
                     </li>
                     <li class="nav-item">
-                        <form action="{{ route('logout') }}" method="POST">
-                            @csrf
-                            <button type="submit" class="btn bg-transparent">Logout</button>
-                        </form>
+                        <a class="nav-link {{ Route::is('profile') ? 'active' : '' }}" href="{{ route('profile') }}">Profile</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('profile') }}">Profile</a>
+                        <form action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <button type="submit" class=" btn text-muted bg-transparent">Logout</button>
+                        </form>
                     </li>
                 @endauth
             </ul>

@@ -24,7 +24,7 @@
                     </h6>
                     <small class="fs-6 fw-light text-muted">{{ Carbon::parse($comment->created_at)->diffForHumans() }}</small>
                 </div>
-                <p class="fs-6 mt-3 fw-light">
+                <p class="fs-6 mt-0 fw-light">
                     {{ $comment->content }}
                 </p>
             </div>

@@ -56,4 +56,4 @@ Route::get('profile', [UserController::class, 'profile'])->name('profile')->midd
 
 Route::get('/terms', function() {
     return view('terms');
-});
+})->name('terms');
