@@ -19,7 +19,7 @@
                 @endguest
                 @auth()
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{ route('users.show',Auth::id()) }}">{{ Auth::user()->name }}</a>
+                        <span class="nav-link" aria-current="page">{{ Auth::user()->name }}</span>
                     </li>
                     <li class="nav-item">
                         <form action="{{ route('logout') }}" method="POST">
@@ -28,7 +28,7 @@
                         </form>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/profile">Profile</a>
+                        <a class="nav-link" href="{{ route('profile') }}">Profile</a>
                     </li>
                 @endauth
             </ul>

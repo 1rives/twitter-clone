@@ -4,6 +4,8 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -19,6 +21,8 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'bio',
+        'image',
         'email',
         'password',
     ];
@@ -43,11 +47,61 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    /**
+     * Returns all active twits from specified user
+     *
+     * @return HasMany
+     */
     public function twits() {
         return $this->hasMany(Twittah::class)->latest();
     }
 
+    /**
+     * Returns all active comments from specified user
+     *
+     * @return HasMany
+     */
     public function comments() {
         return $this->hasMany(Comment::class)->latest();
+    }
+
+    /**
+     * Returns all the current followings from specified user
+     *
+     * @return BelongsToMany
+     */
+    public function followings() {
+        return $this->belongsToMany(User::class, 'follower_user', 'follower_id', 'user_id')->withTimestamps();
+    }
+
+    /**
+     * Returns all the current followers from specified user
+     *
+     * @return BelongsToMany
+     */
+    public function followers() {
+        return $this->belongsToMany(User::class, 'follower_user', 'user_id', 'follower_id')->withTimestamps();
+    }
+
+    /**
+     * Returns the value of whether the user is following or not
+     *
+     * @param User $user
+     * @return bool
+     */
+    public function isFollowing(User $user){
+        return $this->followings()->where('user_id', $user->id)->exists();
+    }
+
+    /**
+     * Returns the profile picture from specified user
+     *
+     * @return string
+     */
+    public function getImageURL(){
+        if($this->image) {
+            return url('storage/' . $this->image);
+        }
+        return "https://api.dicebear.com/6.x/fun-emoji/svg?seed=$this->name";
     }
 }

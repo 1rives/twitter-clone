@@ -4,11 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
     /**
-     * Display the specified resource.
+     * Display the specified user.
      */
     public function show(User $user)
     {
@@ -18,22 +19,47 @@ class UserController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the specified user.
      */
     public function edit(User $user)
     {
         $editing = true;
         $twits = $user->twits()->paginate(5);
 
-        return view('users.show', compact('user', 'editing', 'twits'));
+        return view('users.edit', compact('user', 'editing', 'twits'));
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified user in storage.
      */
-    public function update(Request $request, User $user)
+    public function update(User $user)
     {
-        //
+        $validated = request()->validate([
+            'name' => 'required|min:3|max:25',
+            'bio' => 'nullable|min:0|max:120',
+            'image' => 'image',
+        ]);
+
+        // Process image
+        if(request()->has('image')){
+            $imagePath = request()->file('image')->store('profile', 'public');
+            $validated['image'] = $imagePath;
+
+            Storage::disk('public')->delete($user->image ?? '');
+        }
+
+        $user->update($validated);
+
+        return redirect()->route('profile');
+    }
+
+    /**
+     * Update the specified user in storage.
+     */
+    public function profile()
+    {
+        $user = auth()->user();
+        return $this->show(auth()->user());
     }
 
 }
