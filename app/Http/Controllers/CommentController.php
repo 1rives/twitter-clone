@@ -15,7 +15,7 @@ class CommentController extends Controller
         ]);
 
         $validated['user_id'] = auth()->id();
-        $validated['idea_id'] = $twit->id;
+        $validated['twittah_id'] = $twit->id;
 
         Comment::create($validated);
 

@@ -94,6 +94,13 @@ class User extends Authenticatable
     }
 
     /**
+     * @return BelongsToMany
+     */
+    public function likes() {
+        return $this->belongsToMany(Twittah::class, 'twittah_like')->withTimestamps();
+    }
+
+    /**
      * Returns the profile picture from specified user
      *
      * @return string

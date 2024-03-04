@@ -1,14 +1,16 @@
 @use('Carbon\Carbon', 'Carbon')
 <div>
-    <form action="{{ route('twits.comments.store',$twit->id) }}" method="POST">
-        @csrf
-        <div class="mb-3">
-            <textarea name="content" class="fs-6 form-control" rows="1"></textarea>
-        </div>
-        <div>
-            <button type="submit" class="btn btn-primary btn-sm">Post Comment</button>
-        </div>
-    </form>
+    @auth()
+        <form action="{{ route('twits.comments.store',$twit->id) }}" method="POST">
+            @csrf
+            <div class="mb-3">
+                <textarea name="content" class="fs-6 form-control" rows="1"></textarea>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-primary btn-sm">Post Comment</button>
+            </div>
+        </form>
+    @endauth
     <hr>
     @if($twit->comments->isEmpty())
         <span class="d-flex fs-6 text-muted justify-content-center">Be the first to comment!</span>

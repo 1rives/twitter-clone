@@ -48,6 +48,10 @@ Route::post('users/{user}/unfollow', [FollowerController::class, 'unfollow'])->n
 
 Route::get('profile', [UserController::class, 'profile'])->name('profile')->middleware('auth');
 
+Route::get('twits/{twit}/like', [FollowerController::class, 'follow'])->name('twittahs.like')->middleware('auth');
+
+Route::post('twits/{twit}/unlike', [FollowerController::class, 'unfollow'])->name('twittahs.like')->middleware('auth');
+
 /*
 |--------------------------------------------------------------------------
 | Terms Routes
