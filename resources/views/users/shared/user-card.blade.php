@@ -27,26 +27,20 @@
                     {{ $user->bio }}
                 </p>
             @else
-                {{-- Doesn't show anything --}}
+                {{-- Don't show anything --}}
             @endif
 
             <span class="fs-6 text-muted">{{ $user->email }}</span>
 
-            <div class="d-flex pt-3 pb-2 justify-content-start">
-                <a href="#" class="fw-light nav-link fs-6 me-3"> <span class="fas fa-user me-1">
-                                    </span> - Followers </a>
-                <a href="#" class="fw-light nav-link fs-6 me-3"> <span class="fas fa-twitter me-1">
-                                    </span> {{ $user->twits()->count() }} </a>
-                <a href="#" class="fw-light nav-link fs-6"> <span class="fas fa-comment me-1">
-                                    </span> {{ $user->comments()->count() }} </a>
-            </div>
+            @include('users.shared.user-stats')
+
             @auth()
                 @if(Auth::id() !== $user->id)
                     <div class="mt-3 pb-3">
                     @if(Auth::user()->isFollowing($user))
                         <form action="{{ route('users.unfollow', $user->id) }}" method="POST">
                             @csrf
-                            <button type="submit" class="btn btn-secondary"><b>X</b> Unfollow</button>
+                            <button type="submit" class="btn btn-secondary">Unfollow</button>
                         </form>
                     @else
                         <form action="{{ route('users.follow', $user->id) }}" method="POST">

@@ -20,7 +20,7 @@ class DashboardController extends Controller
 
        // Check for a search
        // If there is, search the value on db
-       $twits = Twittah::orderBy('created_at', 'DESC');
+       $twits = Twittah::latest();
 
        if(request()->has('search')){
            $searchParam = "%" . request()->get('search', '') . "%";

@@ -1,4 +1,3 @@
-@use('Carbon\Carbon', 'Carbon')
 <div>
     @auth()
         <form action="{{ route('twits.comments.store',$twit->id) }}" method="POST">
@@ -15,7 +14,7 @@
     @if($twit->comments->isEmpty())
         <span class="d-flex fs-6 text-muted justify-content-center">Be the first to comment!</span>
     @endif
-    @foreach($twit->comments as $comment)
+    @forelse($twit->comments as $comment)
         <div class="d-flex align-items-start">
             <img style="width:35px" class="me-2 avatar-sm rounded-circle"
                  src="{{ $comment->user->getImageURL() }}" alt="{{ $comment->user->name }} Avatar">
@@ -24,12 +23,14 @@
                     <h6><a class="text-decoration-none" href="{{ route('users.show',$twit->user->id) }}">{{ $twit->user->name }}
                         </a>
                     </h6>
-                    <small class="fs-6 fw-light text-muted">{{ Carbon::parse($comment->created_at)->diffForHumans() }}</small>
+                    <small class="fs-6 fw-light text-muted">{{ $comment->created_at->diffForHumans() }}</small>
                 </div>
                 <p class="fs-6 mt-0 fw-light">
                     {{ $comment->content }}
                 </p>
             </div>
         </div>
-    @endforeach
+    @empty
+{{--        <span class="d-flex text-muted justify-content-center">No results found.</span>--}}
+    @endforelse
 </div>

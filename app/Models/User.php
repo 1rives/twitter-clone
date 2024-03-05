@@ -100,8 +100,18 @@ class User extends Authenticatable
         return $this->belongsToMany(Twittah::class, 'twittah_like')->withTimestamps();
     }
 
+
     /**
-     * Returns the profile picture from specified user
+     * Returns all the current likes from specific post
+     *
+     * @return boolean
+     */
+    public function likesPost(Twittah $twit) {
+        return $this->likes()->where('twittah_id', $twit->id)->exists();
+    }
+
+    /**
+     * Returns the profile picture URL from specified user
      *
      * @return string
      */

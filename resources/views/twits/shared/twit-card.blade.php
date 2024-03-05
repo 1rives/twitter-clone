@@ -1,5 +1,3 @@
-@use('Carbon\Carbon', 'Carbon')
-
 <div class="card">
     <div class="px-3 pt-4 pb-2">
         <div class="d-flex align-items-center justify-content-between">
@@ -7,7 +5,8 @@
                 <img style="width:50px" class="me-2 avatar-sm rounded-circle"
                      src="{{ $twit->user->getImageURL() }}" alt="{{ $twit->user->name }} Avatar">
                 <div>
-                    <h5 class="card-title mb-0"><a class="text-decoration-none" href="{{ route('users.show',$twit->user->id) }}">{{ $twit->user->name }}
+                    <h5 class="card-title mb-0"><a class="text-decoration-none"
+                                                   href="{{ route('users.show',$twit->user->id) }}">{{ $twit->user->name }}
                         </a></h5>
                 </div>
             </div>
@@ -49,17 +48,14 @@
                 {{ $twit->content }}
             </p>
         @endif
-        <div class="d-flex justify-content-between">
-            <div>
-                <a href="#" class="fw-light nav-link fs-6"> <span class="fas fa-heart me-1">
-                </span> {{ $twit->likes }} </a>
-            </div>
+        <div class="d-flex justify-content-between pb-2">
+            @include('twits.shared.like-button')
             <div>
                 <span class="fs-6 fw-light text-muted"> <span class="fas fa-clock"> </span>
-                    {{ Carbon::parse($twit->created_at)->diffForHumans() }}
+                    {{ $twit->created_at->diffForHumans() }}
                 </span>
             </div>
         </div>
-        @include('shared.comments-box')
+        @include('twits.shared.comments-box')
     </div>
 </div>

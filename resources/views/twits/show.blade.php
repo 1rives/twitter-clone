@@ -9,7 +9,7 @@
         <div class="col-6">
             @include('shared.success-message')
             <div class="mt-3">
-                @include('shared.twit-card')
+                @include('twits.shared.twit-card')
             </div>
         </div>
         <div class="col-3">

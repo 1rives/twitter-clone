@@ -3,8 +3,10 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FeedController;
 use App\Http\Controllers\FollowerController;
 use App\Http\Controllers\TwitController;
+use App\Http\Controllers\TwittahLikeController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,6 +22,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [ DashboardController::class, 'index' ])->name('dashboard');
+
+Route::get('/feed', FeedController::class)->name('feed')->middleware('auth');
 
 /*
 |--------------------------------------------------------------------------
@@ -40,7 +44,8 @@ Route::resource('twits.comments', CommentController::class)->only(['store'])->mi
 |--------------------------------------------------------------------------
 */
 
-Route::resource('users', UserController::class)->only(['show', 'edit', 'update'])->middleware('auth');
+Route::resource('users', UserController::class)->only(['show']);
+Route::resource('users', UserController::class)->only(['edit', 'update'])->middleware('auth');
 
 Route::post('users/{user}/follow', [FollowerController::class, 'follow'])->name('users.follow')->middleware('auth');
 
@@ -48,9 +53,9 @@ Route::post('users/{user}/unfollow', [FollowerController::class, 'unfollow'])->n
 
 Route::get('profile', [UserController::class, 'profile'])->name('profile')->middleware('auth');
 
-Route::get('twits/{twit}/like', [FollowerController::class, 'follow'])->name('twittahs.like')->middleware('auth');
+Route::post('twits/{twit}/like', [TwittahLikeController::class, 'like'])->name('twits.like')->middleware('auth');
 
-Route::post('twits/{twit}/unlike', [FollowerController::class, 'unfollow'])->name('twittahs.like')->middleware('auth');
+Route::post('twits/{twit}/unlike', [TwittahLikeController::class, 'unlike'])->name('twits.unlike')->middleware('auth');
 
 /*
 |--------------------------------------------------------------------------

@@ -9,12 +9,12 @@
         <div class="col-6">
             @include('shared.success-message')
             <div class="mt-3">
-                @include('shared.user-card')
+                @include('users.shared.user-card')
             </div>
 
             @forelse($twits as $twit)
                 <div class="mt-3">
-                    @include('shared.twit-card')
+                    @include('twits.shared.twit-card')
                 </div>
             @empty
                 <span class="d-flex text-muted justify-content-center">No results found.</span>
