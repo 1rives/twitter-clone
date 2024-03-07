@@ -19,6 +19,11 @@
                     </li>
                 @endguest
                 @auth()
+                    @if(Auth::user()->is_admin)
+                            <li class="nav-item">
+                                <a class="nav-link {{ Route::is('admin.dashboard') ? 'active' : '' }}" href="{{ route('admin.dashboard') }}">Admin</a>
+                            </li>
+                    @endif
                     <li class="nav-item">
                         <span class="nav-link" aria-current="page">{{ Auth::user()->name }}</span>
                     </li>

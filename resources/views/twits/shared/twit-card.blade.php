@@ -6,21 +6,22 @@
                      src="{{ $twit->user->getImageURL() }}" alt="{{ $twit->user->name }} Avatar">
                 <div>
                     <h5 class="card-title mb-0"><a class="text-decoration-none"
-                                                   href="{{ route('users.show',$twit->user->id) }}">{{ $twit->user->name }}
+                        href="{{ route('users.show',$twit->user->id) }}">{{ $twit->user->name }}
                         </a></h5>
                 </div>
             </div>
-            <div>
+            <div class="d-flex align-items-center justify-content-between">
                 @auth()
-                    <form action="{{ route('twits.destroy', $twit->id) }}" method="POST">
-                        @csrf
-                        @method('delete')
-                        <a href="{{ route('twits.show',$twit->id) }}" class="text-decoration-none pe-2">View</a>
-                        @if(auth()->user() == $twit->user)
+                    {{-- Gates example --}}
+                    <a href="{{ route('twits.show',$twit->id) }}" class="text-decoration-none pe-2">View</a>
+                    @can('update', $twit)
+                        <form action="{{ route('twits.destroy', $twit->id) }}" method="POST">
+                            @csrf
+                            @method('delete')
                             <a href="{{ route('twits.edit',$twit->id) }}" class="text-decoration-none pe-2">Edit</a>
                             <button class="btn btn-danger btn-sm" type="submit">X</button>
-                        @endif
-                    </form>
+                        </form>
+                    @endcan
                 @endauth
                 @guest()
                     <a href="{{ route('twits.show',$twit->id) }}" class="text-decoration-none pe-2">View</a>

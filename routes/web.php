@@ -8,6 +8,7 @@ use App\Http\Controllers\FollowerController;
 use App\Http\Controllers\TwitController;
 use App\Http\Controllers\TwittahLikeController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -66,3 +67,11 @@ Route::post('twits/{twit}/unlike', [TwittahLikeController::class, 'unlike'])->na
 Route::get('/terms', function() {
     return view('terms');
 })->name('terms');
+
+/*
+|--------------------------------------------------------------------------
+| admin Routes
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/admin', [AdminDashboardController::class, 'index'])->name('admin.dashboard')->middleware('auth', 'can:admin');

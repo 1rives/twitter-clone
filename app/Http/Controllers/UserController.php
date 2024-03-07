@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Users\UpdateUserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -23,6 +24,8 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
+        $this->authorize('update', $user);
+
         $editing = true;
         $twits = $user->twits()->paginate(5);
 
@@ -32,13 +35,9 @@ class UserController extends Controller
     /**
      * Update the specified user in storage.
      */
-    public function update(User $user)
+    public function update(UpdateUserRequest $request, User $user)
     {
-        $validated = request()->validate([
-            'name' => 'required|min:3|max:25',
-            'bio' => 'nullable|min:0|max:120',
-            'image' => 'image',
-        ]);
+        $validated = $request->validated();
 
         // Process image
         if(request()->has('image')){

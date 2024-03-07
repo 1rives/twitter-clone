@@ -2,17 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Comment\CreateCommentRequest;
 use App\Models\Comment;
 use App\Models\Twittah;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
-    public function store(Twittah $twit){
-
-        $validated = request()->validate([
-            'content' => 'required|min:3|max:240'
-        ]);
+    public function store(CreateCommentRequest $request, Twittah $twit)
+    {
+        $validated = $request->validated();
 
         $validated['user_id'] = auth()->id();
         $validated['twittah_id'] = $twit->id;
