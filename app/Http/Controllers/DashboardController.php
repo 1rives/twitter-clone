@@ -28,8 +28,14 @@ class DashboardController extends Controller
            $twits = $twits->where('content', 'like' , $searchParam);
        }
 
+       $topUsers = User::withCount('twits')
+           ->orderBy('twits_count', 'DESC')
+           ->limit(5)->get();
+
        return view('dashboard', [
-           'twits' => $twits->paginate(3)
+           'twits' => $twits->paginate(3),
+           // Continuar aqui
+           
        ]);
    }
 }

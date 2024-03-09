@@ -13,5 +13,5 @@
     </div>
 @endauth
 @guest()
-    <h4> Login to make posts </h4>
+    <h4>@lang('twits.login_to_share')</h4>
 @endguest

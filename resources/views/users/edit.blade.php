@@ -1,5 +1,7 @@
 @extends('layout.layout')
 
+@section('title', 'Edit your profile')
+
 @section('content')
     <div class="row">
         <div class="col-3">

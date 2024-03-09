@@ -1,5 +1,7 @@
 @extends('layout.layout')
 
+@section('title', "$user->name (@$user->id)")
+
 @section('content')
     <div class="row">
         <div class="col-3">

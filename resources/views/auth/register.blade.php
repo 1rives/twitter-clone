@@ -1,3 +1,5 @@
+@section('title', 'Register')
+
 @include('layout.layout')
 
 @section('content')
@@ -44,3 +46,4 @@
         </form>
     </div>
 </div>
+

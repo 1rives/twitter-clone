@@ -1,3 +1,5 @@
+@section('title', $user->id)
+
 @extends('layout.layout')
 
 @section('content')

@@ -26,6 +26,12 @@ Route::get('/', [ DashboardController::class, 'index' ])->name('dashboard');
 
 Route::get('/feed', FeedController::class)->name('feed')->middleware('auth');
 
+Route::get('/lang/{lang}', function ($lang){
+    session()->put('locale', $lang);
+
+    return redirect()->route('dashboard');
+})->name('lang');
+
 /*
 |--------------------------------------------------------------------------
 | Twits Routes

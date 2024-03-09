@@ -16,6 +16,7 @@
         </ul>
     </div>
     <div class="card-footer text-center py-2">
-        <a class="btn btn-link btn-sm text-decoration-none {{ Route::is('profile') ? 'text-white fw-bold' : '' }}" href="{{ route('profile') }}">View Profile </a>
+        <a class="btn btn-link btn-sm text-decoration-none" href="{{ route('lang', 'en') }}">@lang('lang.english')</a>
+        <a class="btn btn-link btn-sm text-decoration-none" href="{{ route('lang', 'es') }}">@lang('lang.spanish')</a>
     </div>
 </div>
