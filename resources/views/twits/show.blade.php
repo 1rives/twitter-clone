@@ -1,4 +1,8 @@
-@section('title', $user->id)
+@if($user->id ?? '')
+    @section('title', $user->id)
+@else
+    @section('title', $twit->user->id)
+@endif
 
 @extends('layout.layout')
 

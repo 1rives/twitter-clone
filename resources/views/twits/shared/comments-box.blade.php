@@ -20,7 +20,7 @@
                  src="{{ $comment->user->getImageURL() }}" alt="{{ $comment->user->name }} Avatar">
             <div class="w-100">
                 <div class="d-flex justify-content-between">
-                    <h6><a class="text-decoration-none" href="{{ route('users.show',$twit->user->id) }}">{{ $twit->user->name }}
+                    <h6><a class="text-decoration-none" href="{{ route('users.show',$twit->user->id) }}">{{ $comment->user->name }}
                         </a>
                     </h6>
                     <small class="fs-6 fw-light text-muted">{{ $comment->created_at->diffForHumans() }}</small>

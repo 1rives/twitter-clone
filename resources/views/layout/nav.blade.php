@@ -21,7 +21,7 @@
                 @auth()
                     @if(Auth::user()->is_admin)
                             <li class="nav-item">
-                                <a class="nav-link {{ Route::is('admin.dashboard') ? 'active' : '' }}" href="{{ route('admin.dashboard') }}">Admin</a>
+                                <a class="fa fa-users text-primary nav-link {{ Route::is('admin.dashboard') ? 'active' : '' }}" href="{{ route('admin.dashboard') }}"></a>
                             </li>
                     @endif
                     <li class="nav-item">

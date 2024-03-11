@@ -3,7 +3,7 @@
         <h5 class="">Search</h5>
     </div>
     <div class="card-body">
-        <form action="{{ route('dashboard') }}" method="GET">
+        <form action="{{ request()->routeIs('feed') ? route('feed') : route("dashboard") }}" method="GET">
             <input value="{{ request('search', '') }}" name="search" placeholder="..."
                    class="form-control w-100" type="text">
             <button class="btn btn-secondary mt-2"> Search</button>

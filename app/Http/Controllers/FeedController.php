@@ -14,18 +14,15 @@ class FeedController extends Controller
     {
         $followingIDs = auth()->user()->followings()->pluck('user_id');
 
-        // Check for a search
-        // If there is, search the value on db
-        $twits = Twittah::whereIn('user_id', $followingIDs)->latest();
-
-        if(request()->has('search')){
-            $searchParam = "%" . request()->get('search', '') . "%";
-
-            $twits = $twits->where('content', 'like' , $searchParam);
-        }
+        $twits = Twittah::when(request()->has('search'), function($query) {
+            $query->searchTwit(request('search'));
+        })
+            ->whereIn('user_id', $followingIDs)
+            ->latest()
+            ->paginate(3);
 
         return view('dashboard', [
-            'twits' => $twits->paginate(3)
+            'twits' => $twits
         ]);
     }
 }

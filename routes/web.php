@@ -8,7 +8,10 @@ use App\Http\Controllers\FollowerController;
 use App\Http\Controllers\TwitController;
 use App\Http\Controllers\TwittahLikeController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\Admin\CommentController as AdminCommentController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
+use App\Http\Controllers\Admin\TwitController as AdminTwitController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -80,4 +83,14 @@ Route::get('/terms', function() {
 |--------------------------------------------------------------------------
 */
 
-Route::get('/admin', [AdminDashboardController::class, 'index'])->name('admin.dashboard')->middleware('auth', 'can:admin');
+Route::middleware(['auth', 'can:admin'])->prefix('/admin')->as('admin.')->group(function (){
+    Route::get('', [AdminDashboardController::class, 'index'])->name('dashboard');
+
+    Route::resource('users', AdminUserController::class)->only('index');
+
+    Route::resource('twits', AdminTwitController::class)->only('index');
+
+    Route::resource('comments', AdminCommentController::class)->only('index', 'destroy');
+});
+
+
